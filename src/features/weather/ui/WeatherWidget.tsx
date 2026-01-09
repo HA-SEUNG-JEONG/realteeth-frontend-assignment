@@ -36,9 +36,9 @@ export function WeatherWidget({ lat, lon }: WeatherWidgetProps) {
   }
 
   return (
-    <div>
+    <>
       <CurrentWeather weather={weather} />
       <HourlyForecast forecasts={weather.hourlyForecast} />
-    </div>
+    </>
   );
 }

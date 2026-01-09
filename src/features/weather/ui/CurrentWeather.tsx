@@ -7,7 +7,7 @@ interface CurrentWeatherProps {
 
 export function CurrentWeather({ weather }: CurrentWeatherProps) {
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-6 text-white shadow-lg">
+    <div className="bg-blue-500 text-white p-6">
       <div className="flex flex-col items-center">
         <h2 className="text-xl font-semibold mb-2">{weather.location}</h2>
 
@@ -26,20 +26,19 @@ export function CurrentWeather({ weather }: CurrentWeatherProps) {
 
         <div className="flex gap-4 mt-4 text-sm">
           <span className="flex items-center gap-1">
-            <span className="text-blue-200">최저</span>
-            <span className="font-semibold">{weather.tempMin}°</span>
+            <span className="text-blue-200 text-base">최저</span>
+            <span className="font-semibold text-base">{weather.tempMin}°</span>
           </span>
           <span className="text-blue-300">|</span>
           <span className="flex items-center gap-1">
-            <span className="text-blue-200">최고</span>
-            <span className="font-semibold">{weather.tempMax}°</span>
+            <span className="text-blue-200 text-base">최고</span>
+            <span className="font-semibold text-base">{weather.tempMax}°</span>
           </span>
         </div>
-
-        <div className="flex gap-6 mt-4 text-sm text-blue-100">
-          <span>습도 {weather.humidity}%</span>
-          <span>풍속 {weather.windSpeed}m/s</span>
-        </div>
+        {/* <div className="flex gap-6 mt-4 text-sm text-blue-100">
+          <span className="text-base">습도 {weather.humidity}%</span>
+          <span className="text-base">풍속 {weather.windSpeed}m/s</span>
+        </div> */}
       </div>
     </div>
   );
