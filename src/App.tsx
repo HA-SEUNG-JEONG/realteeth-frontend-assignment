@@ -1,15 +1,16 @@
 import { QueryProvider } from "@/app/providers";
-import { WeatherWidget } from "@/features/weather";
-import { LocationSearchInput } from "@/features/location-search";
+
 import { useGeolocation } from "@/shared/hooks";
 import { useLocationSearch } from "@/entities/location";
+import LocationSearchInput from "./features/location-search/ui/LocationSearchInput";
+import WeatherWidget from "./features/weather/ui/WeatherWidget";
 
 function WeatherApp() {
   const { lat, lon, loading, error } = useGeolocation();
   const {
     query,
     setQuery,
-    suggestions,
+    autoCompleteResult,
     isLoading: isSearchLoading,
     selectLocation,
     selectedLocation,
@@ -31,17 +32,16 @@ function WeatherApp() {
           <LocationSearchInput
             query={query}
             onQueryChange={setQuery}
-            suggestions={suggestions}
+            autoCompleteItem={autoCompleteResult}
             onSelectLocation={selectLocation}
             isLoading={isSearchLoading}
             onClear={clearSelection}
-            hasSelection={!!selectedLocation}
           />
         </div>
 
         {selectedLocation && (
           <div className="mb-4 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-xl">
-            <p className="text-blue-300 text-sm text-center">
+            <p className="text-blue-600 font-semibold text-sm text-center">
               {selectedLocation.fullName.replace(/-/g, " ")}
             </p>
           </div>
@@ -63,9 +63,7 @@ function WeatherApp() {
           </div>
         )}
 
-        {hasCoordinates && (
-          <WeatherWidget lat={displayLat} lon={displayLon} />
-        )}
+        {hasCoordinates && <WeatherWidget lat={displayLat} lon={displayLon} />}
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import type { WeatherData } from "@/entities/weather";
-import { WeatherIcon } from "./WeatherIcon";
+import WeatherIcon from "./WeatherIcon";
 
 interface CurrentWeatherProps {
   weather: WeatherData;
 }
 
-export function CurrentWeather({ weather }: CurrentWeatherProps) {
+function CurrentWeather({ weather }: CurrentWeatherProps) {
   return (
     <div className="bg-blue-500 text-white p-6">
       <div className="flex flex-col items-center">
@@ -35,11 +35,13 @@ export function CurrentWeather({ weather }: CurrentWeatherProps) {
             <span className="font-semibold text-base">{weather.tempMax}°</span>
           </span>
         </div>
-        {/* <div className="flex gap-6 mt-4 text-sm text-blue-100">
+        <div className="flex gap-6 mt-4 text-sm text-blue-100">
           <span className="text-base">습도 {weather.humidity}%</span>
           <span className="text-base">풍속 {weather.windSpeed}m/s</span>
-        </div> */}
+        </div>
       </div>
     </div>
   );
 }
+
+export default CurrentWeather;

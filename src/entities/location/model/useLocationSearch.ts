@@ -5,7 +5,7 @@ import type { LocationSearchResult } from "./types";
 interface UseLocationSearchReturn {
   query: string;
   setQuery: (query: string) => void;
-  suggestions: string[];
+  autoCompleteResult: string[];
   isLoading: boolean;
   selectLocation: (fullName: string) => void;
   selectedLocation: LocationSearchResult | null;
@@ -13,23 +13,32 @@ interface UseLocationSearchReturn {
 }
 
 export function useLocationSearch(): UseLocationSearchReturn {
-  const [query, setQuery] = useState("");
+  const [query, setQueryInternal] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
-  const suggestions = useMemo(() => {
+  console.log(setQueryInternal, "setQueryInternal");
+
+  const setQuery = useCallback((newQuery: string) => {
+    setQueryInternal(newQuery);
+    setSelectedDistrict(null);
+  }, []);
+
+  console.log(setQuery, "setQuery");
+
+  const autoCompleteResult = useMemo(() => {
     if (selectedDistrict) return [];
     return searchDistricts(query, 10);
   }, [query, selectedDistrict]);
 
   const selectLocation = useCallback((fullName: string) => {
     setSelectedDistrict(fullName);
-    setQuery(fullName.replace(/-/g, " "));
+    setQueryInternal(fullName.replace(/-/g, " "));
   }, []);
 
-  const clearSelection = useCallback(() => {
+  const clearSelection = () => {
     setSelectedDistrict(null);
-    setQuery("");
-  }, []);
+    setQueryInternal("");
+  };
 
   const selectedLocation = useMemo<LocationSearchResult | null>(() => {
     if (!selectedDistrict) return null;
@@ -37,18 +46,20 @@ export function useLocationSearch(): UseLocationSearchReturn {
     const coordinates = getCityCoordinates(selectedDistrict);
     if (!coordinates) return null;
 
+    const { lat, lon } = coordinates;
+
     return {
       name: selectedDistrict.split("-").pop() || selectedDistrict,
       fullName: selectedDistrict,
-      lat: coordinates.lat,
-      lon: coordinates.lon
+      lat,
+      lon
     };
   }, [selectedDistrict]);
 
   return {
     query,
     setQuery,
-    suggestions,
+    autoCompleteResult,
     isLoading: false,
     selectLocation,
     selectedLocation,

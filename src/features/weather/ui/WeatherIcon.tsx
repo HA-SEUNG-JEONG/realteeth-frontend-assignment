@@ -10,12 +10,10 @@ const sizeClasses = {
   lg: "w-24 h-24"
 };
 
-export function WeatherIcon({
-  icon,
-  description,
-  size = "md"
-}: WeatherIconProps) {
+function WeatherIcon({ icon, description, size = "md" }: WeatherIconProps) {
   const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
   return <img src={iconUrl} alt={description} className={sizeClasses[size]} />;
 }
+
+export default WeatherIcon;

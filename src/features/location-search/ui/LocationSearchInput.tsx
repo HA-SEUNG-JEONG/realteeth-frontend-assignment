@@ -8,8 +8,7 @@ interface LocationSearchInputProps {
   isLoading: boolean;
   onClear: () => void;
 }
-
-export function LocationSearchInput({
+function LocationSearchInput({
   query,
   onQueryChange,
   autoCompleteItem,
@@ -109,7 +108,7 @@ export function LocationSearchInput({
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="장소 검색 (예: 강남, 해운대, 제주)"
+          placeholder="장소 검색 (e.g. “서울특별시”, “종로구”, “청운동”)"
           className="w-full px-4 py-3 pr-10 bg-white/10 border border-gray-400 rounded-xl placeholder-gray-400 focus:ring-1"
           role="combobox"
           aria-expanded={autoCompleteItem.length > 0}
@@ -165,7 +164,7 @@ export function LocationSearchInput({
                 onMouseEnter={() => setHighlightedIndex(index)}
                 className={`w-full px-4 py-3 text-left border-b last:border-b-0 ${
                   index === highlightedIndex
-                    ? " text-gray-400"
+                    ? " text-blue-600 font-semibold"
                     : "hover:bg-white/10"
                 }`}
               >
@@ -178,3 +177,5 @@ export function LocationSearchInput({
     </div>
   );
 }
+
+export default LocationSearchInput;

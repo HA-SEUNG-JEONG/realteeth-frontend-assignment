@@ -13,7 +13,7 @@ interface KoreaDistrictsData {
 
 const data = koreaDistrictsData as KoreaDistrictsData;
 
-export function searchDistricts(query: string, limit: number = 10): string[] {
+export function searchDistricts(query: string, limit: number = 10) {
   if (!query.trim()) {
     return [];
   }
@@ -28,11 +28,7 @@ export function searchDistricts(query: string, limit: number = 10): string[] {
     .slice(0, limit);
 }
 
-export function parseDistrictName(fullName: string): {
-  city: string;
-  district?: string;
-  dong?: string;
-} {
+export function parseDistrictName(fullName: string) {
   const parts = fullName.split("-");
   return {
     city: parts[0],
@@ -41,7 +37,7 @@ export function parseDistrictName(fullName: string): {
   };
 }
 
-export function getCityCoordinates(fullName: string): { lat: number; lon: number } | null {
+export function getCityCoordinates(fullName: string) {
   const city = fullName.split("-")[0];
   const cityData = data.cities[city];
 

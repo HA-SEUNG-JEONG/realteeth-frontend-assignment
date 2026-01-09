@@ -6,6 +6,8 @@ import type {
   HourlyForecast
 } from "@/entities/weather/model/types";
 
+const MAX_FORECAST_COUNT = 12;
+
 export async function fetchCurrentWeather(
   lat: number,
   lon: number
@@ -15,10 +17,7 @@ export async function fetchCurrentWeather(
   });
 }
 
-export async function fetchForecast(
-  lat: number,
-  lon: number
-): Promise<ForecastResponse> {
+export async function fetchForecast(lat: number, lon: number) {
   return apiRequest<ForecastResponse>("/forecast", {
     params: { lat, lon }
   });
@@ -36,14 +35,14 @@ export async function fetchWeatherData(
   const todayForecasts = getTodayForecasts(forecast);
   const { tempMin, tempMax } = getDailyMinMax(current, todayForecasts);
 
-  const hourlyForecast: HourlyForecast[] = forecast.list
-    .slice(0, 8)
-    .map((item) => ({
-      time: formatTime(item.dt),
-      temp: Math.round(item.main.temp),
-      icon: item.weather[0].icon,
-      description: item.weather[0].description
-    }));
+  const maxForecastList = forecast.list.slice(0, MAX_FORECAST_COUNT);
+
+  const hourlyForecast: HourlyForecast[] = maxForecastList.map((item) => ({
+    time: formatTime(item.dt),
+    temp: Math.round(item.main.temp),
+    icon: item.weather[0].icon,
+    description: item.weather[0].description
+  }));
 
   return {
     location: current.name,

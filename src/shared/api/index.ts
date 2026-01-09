@@ -9,7 +9,6 @@ export async function apiRequest<T>(
   options: RequestOptions = {}
 ): Promise<T> {
   const url = new URL(`${config.openWeatherBaseUrl}${endpoint}`);
-  console.log("url", url.toString());
 
   url.searchParams.set("appid", config.openWeatherApiKey);
   url.searchParams.set("units", "metric");

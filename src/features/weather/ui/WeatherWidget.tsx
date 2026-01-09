@@ -1,14 +1,15 @@
 import { useWeather } from "@/entities/weather";
-import { CurrentWeather } from "./CurrentWeather";
-import { HourlyForecast } from "./HourlyForecast";
+import CurrentWeather from "./CurrentWeather";
+import HourlyForecast from "./HourlyForecast";
 
 interface WeatherWidgetProps {
   lat: number;
   lon: number;
 }
 
-export function WeatherWidget({ lat, lon }: WeatherWidgetProps) {
+function WeatherWidget({ lat, lon }: WeatherWidgetProps) {
   const { data: weather, isLoading, error } = useWeather({ lat, lon });
+  console.log(weather, "weather");
 
   if (isLoading) {
     return (
@@ -42,3 +43,5 @@ export function WeatherWidget({ lat, lon }: WeatherWidgetProps) {
     </>
   );
 }
+
+export default WeatherWidget;
