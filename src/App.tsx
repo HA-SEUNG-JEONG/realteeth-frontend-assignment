@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { QueryProvider } from "@/app/providers";
+import { WeatherWidget } from "@/features/weather";
+import { useGeolocation } from "@/shared/hooks";
 
-function App() {
-  const [count, setCount] = useState(0)
+function WeatherApp() {
+  const { lat, lon, loading, error } = useGeolocation();
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mb-4" />
+        <p className="text-gray-400">현재 위치를 확인하는 중...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-6 text-center max-w-md">
+          <p className="text-yellow-400 mb-2">{error}</p>
+          <p className="text-gray-400 text-sm">
+            위치 권한을 허용하거나 장소를 검색하여 날씨를 확인하세요.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen p-4 md:p-8">
+      <div className="max-w-md mx-auto">
+        <h1 className="text-2xl font-bold text-white mb-6 text-center">날씨</h1>
+        <WeatherWidget lat={lat} lon={lon} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <QueryProvider>
+      <WeatherApp />
+    </QueryProvider>
+  );
+}
+
+export default App;
