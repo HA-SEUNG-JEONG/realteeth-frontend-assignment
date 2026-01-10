@@ -46,13 +46,13 @@ export async function fetchWeatherData(
 
   return {
     location: current.name,
-    currentTemp: Math.round(current.main.temp),
+    currentTemp: current.main.temp,
     tempMin,
     tempMax,
     description: current.weather[0].description,
     icon: current.weather[0].icon,
     humidity: current.main.humidity,
-    windSpeed: current.wind.speed,
+    windSpeed: Math.round(current.wind.speed),
     hourlyForecast
   };
 }
@@ -71,8 +71,8 @@ function getDailyMinMax(
 ) {
   if (todayForecasts.length === 0) {
     return {
-      tempMin: Math.round(current.main.temp_min),
-      tempMax: Math.round(current.main.temp_max)
+      tempMin: current.main.temp_min,
+      tempMax: current.main.temp_max
     };
   }
 
@@ -80,8 +80,8 @@ function getDailyMinMax(
   temps.push(current.main.temp);
 
   return {
-    tempMin: Math.round(Math.min(...temps, current.main.temp_min)),
-    tempMax: Math.round(Math.max(...temps, current.main.temp_max))
+    tempMin: current.main.temp_min,
+    tempMax: current.main.temp_max
   };
 }
 

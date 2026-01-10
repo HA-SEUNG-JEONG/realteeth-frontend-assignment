@@ -3,7 +3,21 @@ import { Link } from "react-router-dom";
 import { X, Pencil } from "lucide-react";
 import type { FavoriteLocation } from "@/entities/favorites";
 import { useWeather } from "@/entities/weather";
-import { Card, Button, Input, Skeleton } from "@/shared";
+import {
+  Card,
+  Button,
+  Input,
+  Skeleton,
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel
+} from "@/shared";
 import WeatherIcon from "@/features/weather/ui/WeatherIcon";
 
 interface FavoriteCardProps {
@@ -50,28 +64,55 @@ function FavoriteCard({
     }
   };
 
-  const handleRemove = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (confirm("정말 삭제하시겠습니까?")) {
-      onRemove(favorite.id);
-    }
+  const handleRemove = () => {
+    onRemove(favorite.id);
   };
 
   return (
     <Link to={`/detail/${favorite.id}`} className="block">
       <Card className="p-4 transition-colors relative group">
-        <Button
-          onClick={handleRemove}
-          variant="destructive"
-          size="icon"
-          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-accent-red/20 text-accent-red"
-          aria-label="즐겨찾기 삭제"
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute top-2 right-2 z-10"
         >
-          <X className="w-4 h-4" />
-        </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="icon"
+                className="w-6 h-6 cursor-pointer rounded-full bg-accent-red/20 text-accent-red"
+                aria-label="즐겨찾기 삭제"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>즐겨찾기 삭제</AlertDialogTitle>
+                <AlertDialogDescription>
+                  "{favorite.alias}"를 즐겨찾기에서 삭제하시겠습니까?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="cursor-pointer">
+                  취소
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  className="cursor-pointer"
+                  onClick={handleRemove}
+                >
+                  삭제
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
 
-        <div className="flex items-start justify-between mb-2">
+        <div className="flex items-start justify-between pr-8">
           {isEditing ? (
             <Input
               ref={inputRef}
@@ -82,8 +123,9 @@ function FavoriteCard({
               onBlur={handleEditSave}
               onKeyDown={handleKeyDown}
               onClick={(e) => e.preventDefault()}
-              className="h-8 text-sm font-semibold mr-2"
+              className="h-8 text-sm font-semibold"
               maxLength={20}
+              name="alias"
             />
           ) : (
             <div className="flex items-center gap-1">
@@ -108,7 +150,7 @@ function FavoriteCard({
             <Skeleton className="h-8 w-16" />
           </div>
         ) : weather ? (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-2">
             <div className="flex items-center">
               <WeatherIcon
                 icon={weather.icon}
