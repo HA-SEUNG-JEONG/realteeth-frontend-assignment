@@ -12,7 +12,7 @@ export function useWeather({ lat, lon, enabled = true }: UseWeatherOptions) {
     queryKey: ["weather", lat, lon],
     queryFn: () => fetchWeatherData(lat, lon),
     enabled: enabled && lat !== 0 && lon !== 0,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 15,
     gcTime: 1000 * 60 * 30
   });
 }
