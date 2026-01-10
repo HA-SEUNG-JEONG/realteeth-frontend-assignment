@@ -1,4 +1,4 @@
-import koreaDistrictsData from "../../../../korea_districts.json";
+import koreaDistrictsData from "@/korea_districts.json";
 
 interface CityData {
   en: string;

@@ -6,24 +6,19 @@ interface UseLocationSearchReturn {
   query: string;
   setQuery: (query: string) => void;
   autoCompleteResult: string[];
-  isLoading: boolean;
   selectLocation: (fullName: string) => void;
   selectedLocation: LocationSearchResult | null;
   clearSelection: () => void;
 }
 
 export function useLocationSearch(): UseLocationSearchReturn {
-  const [query, setQueryInternal] = useState("");
+  const [query, setQuery] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
-  console.log(setQueryInternal, "setQueryInternal");
-
-  const setQuery = useCallback((newQuery: string) => {
-    setQueryInternal(newQuery);
+  const handleQueryChange = useCallback((newQuery: string) => {
+    setQuery(newQuery);
     setSelectedDistrict(null);
   }, []);
-
-  console.log(setQuery, "setQuery");
 
   const autoCompleteResult = useMemo(() => {
     if (selectedDistrict) return [];
@@ -32,12 +27,12 @@ export function useLocationSearch(): UseLocationSearchReturn {
 
   const selectLocation = useCallback((fullName: string) => {
     setSelectedDistrict(fullName);
-    setQueryInternal(fullName.replace(/-/g, " "));
+    setQuery(fullName.replace(/-/g, " "));
   }, []);
 
   const clearSelection = () => {
     setSelectedDistrict(null);
-    setQueryInternal("");
+    setQuery("");
   };
 
   const selectedLocation = useMemo<LocationSearchResult | null>(() => {
@@ -58,9 +53,8 @@ export function useLocationSearch(): UseLocationSearchReturn {
 
   return {
     query,
-    setQuery,
+    setQuery: handleQueryChange,
     autoCompleteResult,
-    isLoading: false,
     selectLocation,
     selectedLocation,
     clearSelection

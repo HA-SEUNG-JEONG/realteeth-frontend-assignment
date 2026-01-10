@@ -1,21 +1,34 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Star } from "lucide-react";
 import { QueryProvider } from "@/app/providers";
 
-import { useGeolocation } from "@/shared/hooks";
+import { useGeolocation, Button, Card, Skeleton } from "@/shared";
 import { useLocationSearch } from "@/entities/location";
+import { useFavorites, MAX_FAVORITES } from "@/entities/favorites";
 import LocationSearchInput from "./features/location-search/ui/LocationSearchInput";
 import WeatherWidget from "./features/weather/ui/WeatherWidget";
+import { FavoriteList } from "./features/favorites";
+import DetailPage from "./pages/DetailPage";
 
-function WeatherApp() {
+function HomePage() {
   const { lat, lon, loading, error } = useGeolocation();
   const {
     query,
     setQuery,
     autoCompleteResult,
-    isLoading: isSearchLoading,
     selectLocation,
     selectedLocation,
     clearSelection
   } = useLocationSearch();
+
+  const {
+    favorites,
+    addFavorite,
+    removeFavorite,
+    updateAlias,
+    isFavorite,
+    canAddMore
+  } = useFavorites();
 
   const displayLat = selectedLocation?.lat ?? lat;
   const displayLon = selectedLocation?.lon ?? lon;
@@ -23,44 +36,93 @@ function WeatherApp() {
 
   const isInitialLoading = loading && !selectedLocation;
 
+  const handleAddFavorite = () => {
+    if (!selectedLocation || !canAddMore) return;
+
+    const defaultAlias =
+      selectedLocation.fullName.split("-").pop() || selectedLocation.name;
+    addFavorite({
+      fullName: selectedLocation.fullName,
+      alias: defaultAlias,
+      lat: selectedLocation.lat,
+      lon: selectedLocation.lon
+    });
+  };
+
+  const isCurrentLocationFavorite = selectedLocation
+    ? isFavorite(selectedLocation.fullName)
+    : false;
+
   return (
     <div className="min-h-screen p-4 md:p-8">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-2xl font-bold text-white mb-6 text-center">날씨</h1>
-
+      <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto">
         <div className="mb-6">
           <LocationSearchInput
             query={query}
             onQueryChange={setQuery}
             autoCompleteItem={autoCompleteResult}
             onSelectLocation={selectLocation}
-            isLoading={isSearchLoading}
             onClear={clearSelection}
           />
         </div>
 
+        <FavoriteList
+          favorites={favorites}
+          onUpdateAlias={updateAlias}
+          onRemove={removeFavorite}
+        />
+
         {selectedLocation && (
-          <div className="mb-4 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-xl">
-            <p className="text-blue-600 font-semibold text-sm text-center">
+          <Card className="mb-4 px-4 py-2 bg-primary/20 border-primary/30 flex items-center justify-between">
+            <p className="text-primary font-semibold text-sm">
               {selectedLocation.fullName.replace(/-/g, " ")}
             </p>
-          </div>
+            {!isCurrentLocationFavorite && (
+              <Button
+                onClick={handleAddFavorite}
+                disabled={!canAddMore}
+                variant="secondary"
+                size="sm"
+                className={
+                  canAddMore
+                    ? "bg-accent-yellow/20 text-accent-yellow hover:bg-accent-yellow/30"
+                    : "bg-muted/20 text-muted cursor-not-allowed"
+                }
+              >
+                <Star className="w-4 h-4" />
+                {canAddMore
+                  ? "즐겨찾기"
+                  : `가득 참 (${MAX_FAVORITES}/${MAX_FAVORITES})`}
+              </Button>
+            )}
+            {isCurrentLocationFavorite && (
+              <span className="text-accent-yellow text-sm flex items-center gap-1">
+                <Star className="w-4 h-4" fill="currentColor" />
+                즐겨찾기됨
+              </span>
+            )}
+          </Card>
         )}
 
         {isInitialLoading && (
-          <div className="flex flex-col items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mb-4" />
-            <p className="text-gray-400">현재 위치를 확인하는 중...</p>
+          <div className="space-y-4">
+            <Card className="p-6">
+              <div className="flex flex-col items-center space-y-4">
+                <Skeleton className="h-6 w-32" />
+                <Skeleton className="h-12 w-12 rounded-full" />
+                <Skeleton className="h-4 w-48" />
+              </div>
+            </Card>
           </div>
         )}
 
         {!isInitialLoading && !hasCoordinates && error && !selectedLocation && (
-          <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-6 text-center">
-            <p className="text-yellow-400 mb-2">{error}</p>
-            <p className="text-gray-400 text-sm">
+          <Card className="bg-accent-yellow/10 border-accent-yellow/20 p-6 text-center">
+            <p className="text-accent-yellow mb-2">{error}</p>
+            <p className="text-muted text-sm">
               위치 권한을 허용하거나 장소를 검색하여 날씨를 확인하세요.
             </p>
-          </div>
+          </Card>
         )}
 
         {hasCoordinates && <WeatherWidget lat={displayLat} lon={displayLon} />}
@@ -72,7 +134,12 @@ function WeatherApp() {
 function App() {
   return (
     <QueryProvider>
-      <WeatherApp />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+        </Routes>
+      </BrowserRouter>
     </QueryProvider>
   );
 }

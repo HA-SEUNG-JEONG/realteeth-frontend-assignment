@@ -1,19 +1,20 @@
 import { useRef, useState, useCallback } from "react";
+import { X } from "lucide-react";
+import { Input, Button, Card } from "@/shared";
 
 interface LocationSearchInputProps {
   query: string;
   onQueryChange: (query: string) => void;
   autoCompleteItem: string[];
   onSelectLocation: (fullName: string) => void;
-  isLoading: boolean;
   onClear: () => void;
 }
+
 function LocationSearchInput({
   query,
   onQueryChange,
   autoCompleteItem,
   onSelectLocation,
-  isLoading,
   onClear
 }: LocationSearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -102,14 +103,14 @@ function LocationSearchInput({
   return (
     <div className="relative w-full">
       <div className="relative">
-        <input
+        <Input
           ref={inputRef}
           type="text"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="장소 검색 (e.g. “서울특별시”, “종로구”, “청운동”)"
-          className="w-full px-4 py-3 pr-10 bg-white/10 border border-gray-400 rounded-xl placeholder-gray-400 focus:ring-1"
+          placeholder="장소 검색 (서울특별시, 종로구, 청운동)"
+          className="h-12 pr-10"
           role="combobox"
           aria-expanded={autoCompleteItem.length > 0}
           aria-haspopup="listbox"
@@ -117,62 +118,45 @@ function LocationSearchInput({
             highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined
           }
         />
-        {isLoading && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <div className="animate-spin rounded-full h-5 w-5 border-2 border-t-transparent" />
-          </div>
-        )}
-        {query && !isLoading && (
-          <button
+        {query && (
+          <Button
             onClick={onClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 transition-colors"
+            variant="ghost"
+            size="icon"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-muted hover:text-accent-red"
             aria-label="검색 초기화"
             tabIndex={-1}
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+            <X className="w-5 h-5" />
+          </Button>
         )}
       </div>
 
       {autoCompleteItem.length > 0 && (
-        <ul
-          ref={listRef}
-          className="absolute z-1 w-full mt-2  border border-gray-400 overflow-hidden max-h-60 overflow-y-auto"
-          role="listbox"
-        >
-          {autoCompleteItem.map((item, index) => (
-            <li
-              key={item}
-              role="option"
-              aria-selected={index === highlightedIndex}
-            >
-              <button
-                id={`suggestion-${index}`}
-                onClick={() => handleSelect(item)}
-                onMouseEnter={() => setHighlightedIndex(index)}
-                className={`w-full px-4 py-3 text-left border-b last:border-b-0 ${
-                  index === highlightedIndex
-                    ? " text-blue-600 font-semibold"
-                    : "hover:bg-white/10"
-                }`}
+        <Card className="absolute z-10 w-full mt-2 overflow-hidden max-h-60 overflow-y-auto p-0">
+          <ul ref={listRef} role="listbox">
+            {autoCompleteItem.map((item, index) => (
+              <li
+                key={item}
+                role="option"
+                aria-selected={index === highlightedIndex}
               >
-                {formatDisplayName(item)}
-              </button>
-            </li>
-          ))}
-        </ul>
+                <button
+                  id={`suggestion-${index}`}
+                  onClick={() => handleSelect(item)}
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                  className={`w-full px-4 py-3 text-left border-b border-border last:border-b-0 transition-colors ${
+                    index === highlightedIndex
+                      ? "bg-primary/20 text-primary font-semibold"
+                      : "hover:bg-card-hover"
+                  }`}
+                >
+                  {formatDisplayName(item)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </Card>
       )}
     </div>
   );
