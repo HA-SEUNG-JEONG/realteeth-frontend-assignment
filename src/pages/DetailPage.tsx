@@ -3,8 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useFavorites } from "@/entities/favorites";
 import { useWeather } from "@/entities/weather";
 import { Button, Card, Skeleton } from "@/shared";
-import WeatherIcon from "@/features/weather/ui/WeatherIcon";
-import HourlyForecast from "@/features/weather/ui/HourlyForecast";
+import { CurrentWeather, HourlyForecast } from "@/features/weather";
 
 function DetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -81,50 +80,7 @@ function DetailPage() {
 
         {weather && (
           <div className="space-y-4">
-            <Card className="bg-primary text-primary-foreground p-6">
-              <div className="flex flex-col items-center lg:flex-row lg:justify-between">
-                <div className="flex flex-col items-center lg:items-start">
-                  <div className="flex items-center justify-center">
-                    <WeatherIcon
-                      icon={weather.icon}
-                      description={weather.description}
-                      size="lg"
-                    />
-                    <span className="text-6xl font-bold ml-2">
-                      {weather.currentTemp}°
-                    </span>
-                  </div>
-                  <p className="text-lg capitalize mt-2">{weather.description}</p>
-                </div>
-
-                <div className="flex gap-4 mt-4 lg:mt-0 text-sm">
-                  <span className="flex items-center gap-1">
-                    <span className="text-primary-foreground/70 text-base">최저</span>
-                    <span className="font-semibold text-base">{weather.tempMin}°</span>
-                  </span>
-                  <span className="text-primary-foreground/50">|</span>
-                  <span className="flex items-center gap-1">
-                    <span className="text-primary-foreground/70 text-base">최고</span>
-                    <span className="font-semibold text-base">{weather.tempMax}°</span>
-                  </span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4">
-              <h3 className="font-semibold mb-3">상세 정보</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-card rounded-xl p-3">
-                  <p className="text-muted text-sm">습도</p>
-                  <p className="text-xl font-semibold">{weather.humidity}%</p>
-                </div>
-                <div className="bg-card rounded-xl p-3">
-                  <p className="text-muted text-sm">풍속</p>
-                  <p className="text-xl font-semibold">{weather.windSpeed}m/s</p>
-                </div>
-              </div>
-            </Card>
-
+            <CurrentWeather weather={weather} />
             <HourlyForecast forecasts={weather.hourlyForecast} />
           </div>
         )}

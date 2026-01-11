@@ -6,7 +6,7 @@ import { useGeolocation, Button, Card, Skeleton } from "@/shared";
 import { useLocationSearch } from "@/entities/location";
 import { useFavorites, MAX_FAVORITES } from "@/entities/favorites";
 import LocationSearchInput from "./features/location-search/ui/LocationSearchInput";
-import WeatherWidget from "./features/weather/ui/WeatherWidget";
+import { WeatherWidget } from "@/features/weather";
 import { FavoriteList } from "./features/favorites";
 import DetailPage from "./pages/DetailPage";
 

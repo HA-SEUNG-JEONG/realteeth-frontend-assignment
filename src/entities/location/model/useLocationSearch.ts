@@ -1,5 +1,8 @@
 import { useState, useCallback, useMemo } from "react";
-import { searchDistricts, getCityCoordinates } from "../lib/koreaDistricts";
+import {
+  searchDistricts,
+  getCityCoordinates
+} from "@/shared/lib/koreaDistricts";
 import type { LocationSearchResult } from "./types";
 
 interface UseLocationSearchReturn {
