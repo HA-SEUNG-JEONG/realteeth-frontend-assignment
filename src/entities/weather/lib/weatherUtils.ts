@@ -26,8 +26,8 @@ export function getDailyMinMax(
   temps.push(current.main.temp);
 
   return {
-    tempMin: current.main.temp_min,
-    tempMax: current.main.temp_max
+    tempMin: Math.round(current.main.temp_min * 10) / 10,
+    tempMax: Math.round(current.main.temp_max * 10) / 10
   };
 }
 

@@ -51,7 +51,7 @@ export async function fetchWeatherData(
 
   return {
     location: current.name,
-    currentTemp: current.main.temp,
+    currentTemp: Math.round(current.main.temp * 10) / 10,
     tempMin,
     tempMax,
     description: current.weather[0].description,
