@@ -55,16 +55,15 @@ function HomePage() {
 
   return (
     <div className="min-h-screen p-4 md:p-8">
-      <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto">
-        <div className="mb-6">
-          <LocationSearchInput
-            query={query}
-            onQueryChange={setQuery}
-            autoCompleteItem={autoCompleteResult}
-            onSelectLocation={selectLocation}
-            onClear={clearSelection}
-          />
-        </div>
+      <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto bg-ring p-4 rounded-xl">
+        <LocationSearchInput
+          query={query}
+          onQueryChange={setQuery}
+          autoCompleteItem={autoCompleteResult}
+          onSelectLocation={selectLocation}
+          onClear={clearSelection}
+          className="mb-6"
+        />
 
         <FavoriteList
           favorites={favorites}
@@ -105,15 +104,13 @@ function HomePage() {
         )}
 
         {isInitialLoading && (
-          <div className="space-y-4">
-            <Card className="p-6">
-              <div className="flex flex-col items-center space-y-4">
-                <Skeleton className="h-6 w-32" />
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <Skeleton className="h-4 w-48" />
-              </div>
-            </Card>
-          </div>
+          <Card className="p-6">
+            <div className="flex flex-col items-center space-y-4">
+              <Skeleton className="h-6 w-32" />
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <Skeleton className="h-4 w-48" />
+            </div>
+          </Card>
         )}
 
         {!isInitialLoading && !hasCoordinates && error && !selectedLocation && (

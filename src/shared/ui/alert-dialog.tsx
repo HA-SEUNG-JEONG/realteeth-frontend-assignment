@@ -74,7 +74,7 @@ const AlertDialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold text-foreground", className)}
+    className={cn("text-lg font-semibold text-gray-900", className)}
     {...props}
   />
 ));
@@ -86,7 +86,7 @@ const AlertDialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-sm text-gray-600", className)}
     {...props}
   />
 ));
@@ -111,7 +111,11 @@ const AlertDialogCancel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     ref={ref}
-    className={cn(buttonVariants({ variant: "secondary" }), "mt-2 sm:mt-0", className)}
+    className={cn(
+      buttonVariants({ variant: "secondary" }),
+      "mt-2 sm:mt-0 text-gray-500 bg-gray-300",
+      className
+    )}
     {...props}
   />
 ));
@@ -128,5 +132,5 @@ export {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogAction,
-  AlertDialogCancel,
+  AlertDialogCancel
 };

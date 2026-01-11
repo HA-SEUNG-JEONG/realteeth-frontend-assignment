@@ -47,12 +47,10 @@ function DetailPage() {
           뒤로가기
         </Button>
 
-        <div className="mb-4">
-          <h1 className="text-2xl font-bold">{favorite.alias}</h1>
-          <p className="text-muted text-sm">
-            {favorite.fullName.replace(/-/g, " ")}
-          </p>
-        </div>
+        <h1 className="text-2xl font-bold">{favorite.alias}</h1>
+        <p className="text-muted text-sm mb-4">
+          {favorite.fullName.replace(/-/g, " ")}
+        </p>
 
         {isLoading && (
           <div className="space-y-4">

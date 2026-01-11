@@ -8,6 +8,7 @@ interface LocationSearchInputProps {
   autoCompleteItem: string[];
   onSelectLocation: (fullName: string) => void;
   onClear: () => void;
+  className?: string;
 }
 
 function LocationSearchInput({
@@ -15,7 +16,8 @@ function LocationSearchInput({
   onQueryChange,
   autoCompleteItem,
   onSelectLocation,
-  onClear
+  onClear,
+  className
 }: LocationSearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -101,36 +103,34 @@ function LocationSearchInput({
   };
 
   return (
-    <div className="relative w-full">
-      <div className="relative">
-        <Input
-          ref={inputRef}
-          type="text"
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="장소 검색 (서울특별시, 종로구, 청운동)"
-          className="h-12 pr-10"
-          role="combobox"
-          aria-expanded={autoCompleteItem.length > 0}
-          aria-haspopup="listbox"
-          aria-activedescendant={
-            highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined
-          }
-        />
-        {query && (
-          <Button
-            onClick={onClear}
-            variant="ghost"
-            size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-muted hover:text-accent-red"
-            aria-label="검색 초기화"
-            tabIndex={-1}
-          >
-            <X className="w-5 h-5" />
-          </Button>
-        )}
-      </div>
+    <div className={`relative w-full ${className ?? ""}`}>
+      <Input
+        ref={inputRef}
+        type="text"
+        value={query}
+        onChange={(e) => onQueryChange(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder="장소 검색 (서울특별시, 종로구, 청운동)"
+        className="h-12 pr-10"
+        role="combobox"
+        aria-expanded={autoCompleteItem.length > 0}
+        aria-haspopup="listbox"
+        aria-activedescendant={
+          highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined
+        }
+      />
+      {query && (
+        <Button
+          onClick={onClear}
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-muted hover:text-accent-red"
+          aria-label="검색 초기화"
+          tabIndex={-1}
+        >
+          <X className="w-5 h-5" />
+        </Button>
+      )}
 
       {autoCompleteItem.length > 0 && (
         <Card className="absolute z-10 w-full mt-2 overflow-hidden max-h-60 overflow-y-auto p-0">
