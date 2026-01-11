@@ -105,13 +105,14 @@ function LocationSearchInput({
   return (
     <div className={`relative w-full ${className ?? ""}`}>
       <Input
+        name="location"
         ref={inputRef}
         type="text"
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="장소 검색 (서울특별시, 종로구, 청운동)"
-        className="h-12 pr-10"
+        className="h-12 pr-10 border border-border"
         role="combobox"
         aria-expanded={autoCompleteItem.length > 0}
         aria-haspopup="listbox"

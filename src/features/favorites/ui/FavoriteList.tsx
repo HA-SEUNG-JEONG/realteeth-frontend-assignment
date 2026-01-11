@@ -21,7 +21,7 @@ function FavoriteList({
     <div className="mb-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-semibold">즐겨찾기</h2>
-        <span className="text-base font-semibold text-blue-500 ">
+        <span className="text-base font-semibold text-primary">
           {favorites.length}/{MAX_FAVORITES}
         </span>
       </div>

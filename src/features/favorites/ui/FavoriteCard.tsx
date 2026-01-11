@@ -70,7 +70,7 @@ function FavoriteCard({
 
   return (
     <Link to={`/detail/${favorite.id}`} className="block">
-      <Card className="p-4 transition-colors relative group">
+      <Card className="p-4 transition-colors relative group border border-border">
         <div
           onClick={(e) => {
             e.preventDefault();
@@ -161,7 +161,7 @@ function FavoriteCard({
                 {weather.currentTemp}°
               </span>
             </div>
-            <div className="text-right text-xs text-muted">
+            <div className="text-right text-sm text-muted">
               <div>최저 {weather.tempMin}°</div>
               <div>최고 {weather.tempMax}°</div>
             </div>
@@ -170,7 +170,7 @@ function FavoriteCard({
           <p className="text-muted text-sm">날씨 정보 없음</p>
         )}
 
-        <p className="text-xs text-muted mt-2 truncate">
+        <p className="text-sm text-muted mt-2 truncate">
           {favorite.fullName.replace(/-/g, " ")}
         </p>
       </Card>

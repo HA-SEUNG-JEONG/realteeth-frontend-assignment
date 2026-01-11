@@ -22,7 +22,9 @@ function HourlyForecast({ forecasts }: HourlyForecastProps) {
               description={forecast.description}
               size="sm"
             />
-            <span className="font-semibold">{forecast.temp}°</span>
+            <span className="font-semibold text-gray-900">
+              {forecast.temp}°
+            </span>
           </div>
         ))}
       </div>

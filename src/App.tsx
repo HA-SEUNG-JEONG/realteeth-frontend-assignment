@@ -55,7 +55,7 @@ function HomePage() {
 
   return (
     <div className="min-h-screen p-4 md:p-8">
-      <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto bg-ring p-4 rounded-xl">
+      <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto p-4 rounded-md">
         <LocationSearchInput
           query={query}
           onQueryChange={setQuery}
