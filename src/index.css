@@ -3,7 +3,7 @@
 @theme {
   --color-background: rgba(255, 255, 255, 0.9);
   --color-foreground: rgba(255, 255, 255, 0.87);
-  --color-card: rgba(255, 255, 255, 0.1);
+  --color-card: #ffffff;
   --color-card-hover: rgba(255, 255, 255, 0.2);
   --color-primary: #3b82f6;
   --color-primary-foreground: #ffffff;

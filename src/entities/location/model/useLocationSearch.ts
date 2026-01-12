@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   searchDistricts,
   getCityCoordinates
@@ -18,20 +18,20 @@ export function useLocationSearch(): UseLocationSearchReturn {
   const [query, setQuery] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
-  const handleQueryChange = useCallback((newQuery: string) => {
+  const handleQueryChange = (newQuery: string) => {
     setQuery(newQuery);
     setSelectedDistrict(null);
-  }, []);
+  };
 
   const autoCompleteResult = useMemo(() => {
     if (selectedDistrict) return [];
     return searchDistricts(query, 10);
   }, [query, selectedDistrict]);
 
-  const selectLocation = useCallback((fullName: string) => {
+  const selectLocation = (fullName: string) => {
     setSelectedDistrict(fullName);
     setQuery(fullName.replace(/-/g, " "));
-  }, []);
+  };
 
   const clearSelection = () => {
     setSelectedDistrict(null);

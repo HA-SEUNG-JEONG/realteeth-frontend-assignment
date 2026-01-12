@@ -70,12 +70,9 @@ export function useFavorites(): UseFavoritesReturn {
     });
   }, []);
 
-  const isFavorite = useCallback(
-    (fullName: string) => {
-      return favorites.some((f) => f.fullName === fullName);
-    },
-    [favorites]
-  );
+  const isFavorite = (fullName: string) => {
+    return favorites.some((f) => f.fullName === fullName);
+  };
 
   return {
     favorites,
