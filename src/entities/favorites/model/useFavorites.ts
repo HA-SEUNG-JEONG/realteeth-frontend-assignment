@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import type { FavoriteLocation } from "./types";
 import { MAX_FAVORITES } from "./types";
 
@@ -13,7 +13,7 @@ function loadFavorites(): FavoriteLocation[] {
   }
 }
 
-function saveFavorites(favorites: FavoriteLocation[]): void {
+function saveFavorites(favorites: FavoriteLocation[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
 }
 
@@ -29,50 +29,46 @@ interface UseFavoritesReturn {
 export function useFavorites(): UseFavoritesReturn {
   const [favorites, setFavorites] = useState<FavoriteLocation[]>(loadFavorites);
 
-  const addFavorite = useCallback(
-    (location: Omit<FavoriteLocation, "id" | "createdAt">): void => {
-      setFavorites((current) => {
-        if (current.length >= MAX_FAVORITES) {
-          return current;
-        }
+  const addFavorite = (location: Omit<FavoriteLocation, "id" | "createdAt">) => {
+    setFavorites((current) => {
+      if (current.length >= MAX_FAVORITES) {
+        return current;
+      }
 
-        if (current.some((f) => f.fullName === location.fullName)) {
-          return current;
-        }
+      if (current.some((f) => f.fullName === location.fullName)) {
+        return current;
+      }
 
-        const newFavorite: FavoriteLocation = {
-          ...location,
-          id: crypto.randomUUID(),
-          createdAt: Date.now()
-        };
+      const newFavorite: FavoriteLocation = {
+        ...location,
+        id: crypto.randomUUID(),
+        createdAt: Date.now()
+      };
 
-        const updated = [...current, newFavorite];
-        saveFavorites(updated);
-        return updated;
-      });
-    },
-    []
-  );
+      const updated = [...current, newFavorite];
+      saveFavorites(updated);
+      return updated;
+    });
+  };
 
-  const removeFavorite = useCallback((id: string) => {
+  const removeFavorite = (id: string) => {
     setFavorites((current) => {
       const updated = current.filter((f) => f.id !== id);
       saveFavorites(updated);
       return updated;
     });
-  }, []);
+  };
 
-  const updateAlias = useCallback((id: string, alias: string) => {
+  const updateAlias = (id: string, alias: string) => {
     setFavorites((current) => {
       const updated = current.map((f) => (f.id === id ? { ...f, alias } : f));
       saveFavorites(updated);
       return updated;
     });
-  }, []);
-
-  const isFavorite = (fullName: string) => {
-    return favorites.some((f) => f.fullName === fullName);
   };
+
+  const isFavorite = (fullName: string) =>
+    favorites.some((f) => f.fullName === fullName);
 
   return {
     favorites,

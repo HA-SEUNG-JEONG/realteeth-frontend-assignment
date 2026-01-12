@@ -12,7 +12,11 @@ function DetailPage() {
 
   const favorite = favorites.find((f) => f.id === id);
 
-  const { data: weather, isLoading, error } = useWeather({
+  const {
+    data: weather,
+    isLoading,
+    error
+  } = useWeather({
     lat: favorite?.lat ?? 0,
     lon: favorite?.lon ?? 0,
     enabled: !!favorite
@@ -27,7 +31,9 @@ function DetailPage() {
       <div className="min-h-screen p-4 md:p-8">
         <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto">
           <Card className="bg-accent-yellow/10 border-accent-yellow/20 p-6 text-center">
-            <p className="text-accent-yellow mb-4">즐겨찾기를 찾을 수 없습니다.</p>
+            <p className="text-accent-yellow mb-4">
+              즐겨찾기를 찾을 수 없습니다.
+            </p>
             <Button onClick={handleBack}>돌아가기</Button>
           </Card>
         </div>
@@ -72,7 +78,9 @@ function DetailPage() {
 
         {error && (
           <Card className="bg-accent-red/10 border-accent-red/20 p-6 text-center">
-            <p className="text-accent-red">날씨 정보를 불러오는데 실패했습니다.</p>
+            <p className="text-accent-red">
+              날씨 정보를 불러오는데 실패했습니다.
+            </p>
           </Card>
         )}
 

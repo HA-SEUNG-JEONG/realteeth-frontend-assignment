@@ -5,10 +5,10 @@ import { QueryProvider } from "@/app/providers";
 import { useGeolocation, Button, Card, Skeleton } from "@/shared";
 import { useLocationSearch } from "@/entities/location";
 import { useFavorites, MAX_FAVORITES } from "@/entities/favorites";
-import LocationSearchInput from "./features/location-search/ui/LocationSearchInput";
+import { LocationSearchInput } from "@/features/location-search";
 import { WeatherWidget } from "@/features/weather";
-import { FavoriteList } from "./features/favorites";
-import DetailPage from "./pages/DetailPage";
+import { FavoriteList } from "@/features/favorites";
+import { DetailPage } from "@/pages";
 
 function HomePage() {
   const { lat, lon, loading, error } = useGeolocation();
@@ -37,7 +37,7 @@ function HomePage() {
   const isInitialLoading = loading && !selectedLocation;
 
   const handleAddFavorite = () => {
-    if (!selectedLocation || !canAddMore) return;
+    if (!selectedLocation) return;
 
     const defaultAlias =
       selectedLocation.fullName.split("-").pop() || selectedLocation.name;
@@ -54,7 +54,7 @@ function HomePage() {
     : false;
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="p-4 md:p-8">
       <div className="w-full max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto p-4 rounded-md">
         <LocationSearchInput
           query={query}

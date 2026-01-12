@@ -37,7 +37,9 @@ function WeatherWidget({ lat, lon }: WeatherWidgetProps) {
     return (
       <Card className="bg-accent-red/10 border-accent-red/20 p-6 text-center">
         <p className="text-accent-red">날씨 정보를 불러오는데 실패했습니다.</p>
-        <p className="text-accent-red/70 text-sm mt-2">잠시 후 다시 시도해주세요.</p>
+        <p className="text-accent-red/70 text-sm mt-2">
+          잠시 후 다시 시도해주세요.
+        </p>
       </Card>
     );
   }

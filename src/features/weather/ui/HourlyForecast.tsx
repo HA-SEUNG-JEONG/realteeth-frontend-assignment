@@ -8,8 +8,8 @@ interface HourlyForecastProps {
 
 function HourlyForecast({ forecasts }: HourlyForecastProps) {
   return (
-    <Card className="p-4">
-      <h3 className="font-semibold mb-3">시간별 날씨</h3>
+    <Card className="p-3">
+      <h3 className="font-semibold mb-3 text-gray-900">시간별 날씨</h3>
       <div className="flex gap-2 overflow-x-auto pb-2 lg:grid lg:grid-cols-6 xl:grid-cols-8 lg:overflow-visible">
         {forecasts.map((forecast, index) => (
           <div

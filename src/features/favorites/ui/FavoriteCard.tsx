@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { X, Pencil } from "lucide-react";
 import type { FavoriteLocation } from "@/entities/favorites";
@@ -33,7 +33,6 @@ function FavoriteCard({
 }: FavoriteCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(favorite.alias);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: weather, isLoading } = useWeather({
     lat: favorite.lat,
@@ -115,7 +114,6 @@ function FavoriteCard({
         <div className="flex items-start justify-between pr-8">
           {isEditing ? (
             <Input
-              ref={inputRef}
               autoFocus
               type="text"
               value={editValue}
