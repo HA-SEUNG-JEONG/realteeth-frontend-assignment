@@ -1,55 +1,89 @@
 {
   "cities": {
     "서울특별시": {
-      "en": "Seoul"
+      "en": "Seoul",
+      "lat": 37.5665,
+      "lon": 126.978
     },
     "부산광역시": {
-      "en": "Busan"
+      "en": "Busan",
+      "lat": 35.1796,
+      "lon": 129.0756
     },
     "대구광역시": {
-      "en": "Daegu"
+      "en": "Daegu",
+      "lat": 35.8714,
+      "lon": 128.6014
     },
     "인천광역시": {
-      "en": "Incheon"
+      "en": "Incheon",
+      "lat": 37.4563,
+      "lon": 126.7052
     },
     "광주광역시": {
-      "en": "Gwangju"
+      "en": "Gwangju",
+      "lat": 35.1595,
+      "lon": 126.8526
     },
     "대전광역시": {
-      "en": "Daejeon"
+      "en": "Daejeon",
+      "lat": 36.3504,
+      "lon": 127.3845
     },
     "울산광역시": {
-      "en": "Ulsan"
+      "en": "Ulsan",
+      "lat": 35.5384,
+      "lon": 129.3114
     },
     "세종특별자치시": {
-      "en": "Sejong"
+      "en": "Sejong",
+      "lat": 36.48,
+      "lon": 127.289
     },
     "경기도": {
-      "en": "Gyeonggi-do"
+      "en": "Gyeonggi-do",
+      "lat": 37.4138,
+      "lon": 127.5183
     },
     "강원특별자치도": {
-      "en": "Gangwon-do"
+      "en": "Gangwon-do",
+      "lat": 37.8228,
+      "lon": 128.1555
     },
     "충청북도": {
-      "en": "Chungcheongbuk-do"
+      "en": "Chungcheongbuk-do",
+      "lat": 36.6357,
+      "lon": 127.4917
     },
     "충청남도": {
-      "en": "Chungcheongnam-do"
+      "en": "Chungcheongnam-do",
+      "lat": 36.6588,
+      "lon": 126.6728
     },
     "전북특별자치도": {
-      "en": "Jeollabuk-do"
+      "en": "Jeollabuk-do",
+      "lat": 35.82,
+      "lon": 127.1089
     },
     "전라남도": {
-      "en": "Jeollanam-do"
+      "en": "Jeollanam-do",
+      "lat": 34.8161,
+      "lon": 126.4628
     },
     "경상북도": {
-      "en": "Gyeongsangbuk-do"
+      "en": "Gyeongsangbuk-do",
+      "lat": 36.576,
+      "lon": 128.5056
     },
     "경상남도": {
-      "en": "Gyeongsangnam-do"
+      "en": "Gyeongsangnam-do",
+      "lat": 35.2383,
+      "lon": 128.6926
     },
     "제주특별자치도": {
-      "en": "Jeju"
+      "en": "Jeju",
+      "lat": 33.489,
+      "lon": 126.4983
     }
   },
   "districts": [

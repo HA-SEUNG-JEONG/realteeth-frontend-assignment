@@ -2,6 +2,8 @@ import koreaDistrictsData from "@/korea_districts.json";
 
 interface CityData {
   en: string;
+  lat: number;
+  lon: number;
 }
 
 interface KoreaDistrictsData {
@@ -33,4 +35,14 @@ export function parseDistrictName(fullName: string) {
     district: parts[1],
     dong: parts[2]
   };
+}
+
+export function getCityCoordinates(fullName: string) {
+  const cityName = fullName.split("-")[0];
+  const cityData = data.cities[cityName];
+
+  if (cityData) {
+    return { lat: cityData.lat, lon: cityData.lon };
+  }
+  return null;
 }

@@ -1,5 +1,8 @@
 import { useState, useMemo } from "react";
-import { searchDistricts } from "@/shared/lib/koreaDistricts";
+import {
+  searchDistricts,
+  getCityCoordinates
+} from "@/shared/lib/koreaDistricts";
 import { getCoordinatesByAddress } from "@/shared/api";
 import type { LocationSearchResult } from "./types";
 
@@ -44,9 +47,30 @@ export function useLocationSearch(): UseLocationSearchReturn {
           lat: coordinates.lat,
           lon: coordinates.lng
         });
+      } else {
+        // API 실패 시 도시 좌표로 폴백
+        const fallbackCoords = getCityCoordinates(fullName);
+        if (fallbackCoords) {
+          setSelectedLocation({
+            name: fullName.split("-").pop() || fullName,
+            fullName,
+            lat: fallbackCoords.lat,
+            lon: fallbackCoords.lon
+          });
+        }
       }
     } catch (error) {
       console.error("좌표 조회 실패:", error);
+      // API 에러 시에도 도시 좌표로 폴백
+      const fallbackCoords = getCityCoordinates(fullName);
+      if (fallbackCoords) {
+        setSelectedLocation({
+          name: fullName.split("-").pop() || fullName,
+          fullName,
+          lat: fallbackCoords.lat,
+          lon: fallbackCoords.lon
+        });
+      }
     } finally {
       setIsLoadingCoordinates(false);
     }
