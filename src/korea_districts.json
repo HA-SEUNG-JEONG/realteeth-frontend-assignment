@@ -1,89 +1,55 @@
 {
   "cities": {
     "서울특별시": {
-      "en": "Seoul",
-      "lat": 37.5665,
-      "lon": 126.978
+      "en": "Seoul"
     },
     "부산광역시": {
-      "en": "Busan",
-      "lat": 35.1796,
-      "lon": 129.0756
+      "en": "Busan"
     },
     "대구광역시": {
-      "en": "Daegu",
-      "lat": 35.8714,
-      "lon": 128.6014
+      "en": "Daegu"
     },
     "인천광역시": {
-      "en": "Incheon",
-      "lat": 37.4563,
-      "lon": 126.7052
+      "en": "Incheon"
     },
     "광주광역시": {
-      "en": "Gwangju",
-      "lat": 35.1595,
-      "lon": 126.8526
+      "en": "Gwangju"
     },
     "대전광역시": {
-      "en": "Daejeon",
-      "lat": 36.3504,
-      "lon": 127.3845
+      "en": "Daejeon"
     },
     "울산광역시": {
-      "en": "Ulsan",
-      "lat": 35.5384,
-      "lon": 129.3114
+      "en": "Ulsan"
     },
     "세종특별자치시": {
-      "en": "Sejong",
-      "lat": 36.48,
-      "lon": 127.289
+      "en": "Sejong"
     },
     "경기도": {
-      "en": "Gyeonggi-do",
-      "lat": 37.4138,
-      "lon": 127.5183
+      "en": "Gyeonggi-do"
     },
     "강원특별자치도": {
-      "en": "Gangwon-do",
-      "lat": 37.8228,
-      "lon": 128.1555
+      "en": "Gangwon-do"
     },
     "충청북도": {
-      "en": "Chungcheongbuk-do",
-      "lat": 36.6357,
-      "lon": 127.4917
+      "en": "Chungcheongbuk-do"
     },
     "충청남도": {
-      "en": "Chungcheongnam-do",
-      "lat": 36.6588,
-      "lon": 126.6728
+      "en": "Chungcheongnam-do"
     },
     "전북특별자치도": {
-      "en": "Jeollabuk-do",
-      "lat": 35.7175,
-      "lon": 127.153
+      "en": "Jeollabuk-do"
     },
     "전라남도": {
-      "en": "Jeollanam-do",
-      "lat": 34.8679,
-      "lon": 126.991
+      "en": "Jeollanam-do"
     },
     "경상북도": {
-      "en": "Gyeongsangbuk-do",
-      "lat": 36.4919,
-      "lon": 128.8889
+      "en": "Gyeongsangbuk-do"
     },
     "경상남도": {
-      "en": "Gyeongsangnam-do",
-      "lat": 35.4606,
-      "lon": 128.2132
+      "en": "Gyeongsangnam-do"
     },
     "제주특별자치도": {
-      "en": "Jeju",
-      "lat": 33.4996,
-      "lon": 126.5312
+      "en": "Jeju"
     }
   },
   "districts": [

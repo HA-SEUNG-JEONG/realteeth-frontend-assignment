@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { X } from "lucide-react";
 import { Input, Button, Card } from "@/shared";
 
@@ -63,6 +63,11 @@ function LocationSearchInput({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 한글 IME 조합 중 Enter는 무시
+    if (e.key === "Enter" && e.nativeEvent.isComposing) {
+      return;
+    }
+
     if (autoCompleteItem.length === 0) {
       if (e.key === "Escape" && query) {
         e.preventDefault();
