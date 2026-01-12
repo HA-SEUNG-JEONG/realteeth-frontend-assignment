@@ -1,8 +1,5 @@
 import { useState, useMemo } from "react";
-import {
-  searchDistricts,
-  getCityCoordinates
-} from "@/shared/lib/koreaDistricts";
+import { searchDistricts } from "@/shared/lib/koreaDistricts";
 import { getCoordinatesByAddress } from "@/shared/api";
 import type { LocationSearchResult } from "./types";
 
@@ -37,7 +34,6 @@ export function useLocationSearch(): UseLocationSearchReturn {
     setIsLoadingCoordinates(true);
 
     try {
-      // 주소를 공백 구분 형태로 변환 (서울특별시-종로구-청운동 -> 서울특별시 종로구 청운동)
       const addressQuery = fullName.replace(/-/g, " ");
       const coordinates = await getCoordinatesByAddress(addressQuery);
 
@@ -48,29 +44,9 @@ export function useLocationSearch(): UseLocationSearchReturn {
           lat: coordinates.lat,
           lon: coordinates.lng
         });
-      } else {
-        const localCoords = getCityCoordinates(fullName);
-        if (localCoords) {
-          setSelectedLocation({
-            name: fullName.split("-").pop() || fullName,
-            fullName,
-            lat: localCoords.lat,
-            lon: localCoords.lon
-          });
-        }
       }
     } catch (error) {
       console.error("좌표 조회 실패:", error);
-      // API 실패 시 로컬 데이터로 폴백
-      const localCoords = getCityCoordinates(fullName);
-      if (localCoords) {
-        setSelectedLocation({
-          name: fullName.split("-").pop() || fullName,
-          fullName,
-          lat: localCoords.lat,
-          lon: localCoords.lon
-        });
-      }
     } finally {
       setIsLoadingCoordinates(false);
     }
