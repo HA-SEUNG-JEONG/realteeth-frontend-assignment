@@ -6,6 +6,13 @@ npm i
 npm run dev
 ```
 
+## 스크린샷
+
+
+https://github.com/user-attachments/assets/b5e723c5-fab0-478e-93ba-c84f3fa4c0b9
+
+
+
 ## 구현한 기능에 대한 설명
 
 ### 현재 위치 날씨 조회
@@ -169,3 +176,4 @@ realteeth-assignment
 └─ vite.config.ts
 
 ```
+
