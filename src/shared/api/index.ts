@@ -67,7 +67,7 @@ export async function getCoordinatesByAddress(
   });
 
   if (!response.ok) {
-    throw new Error(`Kakao API Error: ${response.status}`);
+    throw new Error(`카카오 API 에러: ${response.status}`);
   }
 
   const data: KakaoAddressResponse = await response.json();
