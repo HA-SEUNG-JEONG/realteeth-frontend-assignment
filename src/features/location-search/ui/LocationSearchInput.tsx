@@ -144,6 +144,7 @@ function LocationSearchInput({
         aria-activedescendant={
           highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined
         }
+        autoComplete="off"
       />
       {query && (
         <Button
